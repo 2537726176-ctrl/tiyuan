@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>谭斌亮是傻逼</title>
+    <style>
+        #fuck{
+            font-display: auto;
+            font-size: 45px;
+            text-align: center;
+            animation: colorchange 4s infinite;
+        }
+
+        @keyframes colorchange{
+          0%,15%{color: red;}        
+         16%,30%{color: orange;}   
+         31%,45%{color: yellow;}   
+         46%,61%{color: green;}    
+         62%,75%{color: cyan;}     
+         76%,81%{color: blue;}     
+         82%,90%{color: purple;}   
+         91%,94%{color: pink;}     
+         95%,100%{color: silver;}      
+        }
+
+        #fuck.paused{
+            animation-play-state: paused;
+        }
+
+        button{
+            display: block;
+            margin:20px auto;
+            padding:10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+<body>
+    <h3 id="fuck">谈斌亮是傻福</h3>
+    <button onclick="toggleAnimation()">点击选老婆</button>
+    <div id="imgContainer" style="text-align: center; margin-top: 30px;">
+         <img id="resultimg" alt="你的老婆是" style="width: 300px;
+         height: auto; display: none; border: 2px solid #eee; 
+         border-radius: 8px;">
+    </div>
+    <script>
+const colorToImageMap = {
+  'red': 'img/red.jpg',
+  'orange': 'img/orange.jpg',
+  'yellow': 'img/yellow.jpg',
+  'green': 'img/green.jpg',
+  'cyan': 'img/cyan.jpg',
+  'blue': 'img/blue.jpg',
+  'purple': 'img/purple.jpg',
+  'pink': 'img/pink.jpg',
+  'silver': 'img/silver.jpg'
+};
+
+function getColorNameFromRgb(rgbStr) {
+  const rgb = rgbStr.match(/\d+/g).map(Number);
+  const [r, g, b] = rgb;
+  if (r === 255 && g === 0 && b === 0) return 'red';
+  if (r === 255 && g === 165 && b === 0) return 'orange';
+  if (r === 255 && g === 255 && b === 0) return 'yellow';
+  if (r === 0 && g === 128 && b === 0) return 'green';
+  if (r === 0 && g === 255 && b === 255) return 'cyan';
+  if (r <= 10 && g <= 0 && b >= 245) return 'blue';
+  if (r === 128 && g === 0 && b === 128) return 'purple';
+  if (r === 255 && g === 192 && b === 203) return 'pink';
+  if (r === 192 && g === 192 && b === 192) return 'silver';
+  return 'unknown';
+}
+
+function toggleAnimation(){
+  var element = document.getElementById("fuck");
+  var imgElement = document.getElementById("resultimg"); 
+  
+  if(element){
+    element.classList.toggle("paused");
+    
+    if(element.classList.contains("paused")){
+      const currentColor = window.getComputedStyle(element).color;
+      const colorName = getColorNameFromRgb(currentColor);
+      
+      if(colorToImageMap[colorName]){ 
+        imgElement.src = colorToImageMap[colorName];
+        imgElement.style.display = 'block';
+      } else {
+        imgElement.style.display = 'none';
+        alert(`暂无${colorName}对应的图片！`); 
+      }
+    } else {
+      imgElement.style.display = 'none';
+    }
+  } else {
+    console.log("元素未找到");
+  }
+}
+    </script>
+</body>
+</html>
